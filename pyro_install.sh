@@ -7,7 +7,7 @@ COIN_DAEMON='pyrod'
 COIN_CLI='pyro-cli'
 COIN_PATH='/usr/local/bin/'
 COIN_REPO='https://github.com/pyrocoindev/pyro'
-COIN_TGZ='https://github.com/zoldur/pyro/releases/download/0.12.1.3/pyro-01213.tgz'
+COIN_TGZ='https://github.com/pyrocoindev/pyro/releases/download/v1.0.1/pyro.zip'
 COIN_ZIP=$(echo $COIN_TGZ | awk -F'/' '{print $NF}')
 COIN_NAME='pyro'
 COIN_PORT=9669
@@ -46,7 +46,7 @@ function download_node() {
   echo -e "Prepare to download $COIN_NAME binaries"
   cd $TMP_FOLDER >/dev/null 2>&1
   wget -q $COIN_TGZ
-  tar xvzf $COIN_ZIP >/dev/null 2>&1
+  unzip $COIN_ZIP >/dev/null 2>&1
   compile_error
   cp $COIN_DAEMON $COIN_CLI $COIN_PATH
   cd -
@@ -290,11 +290,11 @@ clear
 
 checks
 prepare_system
-ask_permission
-if [[ "$ZOLDUR" == "YES" ]]; then
-  download_node
-else
-  create_swap
-  compile_node
-fi
+#ask_permission
+#if [[ "$ZOLDUR" == "YES" ]]; then
+download_node
+#else
+#  create_swap
+#  compile_node
+#fi
 setup_node
